@@ -1,9 +1,11 @@
 
 /**
+ * @method validate {Boolean} - The validation on a notfication.
  * @method send {Boolean} - The means of sending the notification.
  */
 export interface INotification {
-    send(data?: any) : Boolean
+  validate: () => Boolean
+  send: () => Boolean
 }
 
 export interface EmailNotificationPayload {

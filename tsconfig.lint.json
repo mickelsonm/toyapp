@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noImplicitAny": true,
+      "removeComments": false,
+      "suppressImplicitAnyIndexErrors": true,
+      "resolveJsonModule": true,
+      "target": "es2019",
+      "experimentalDecorators": true,
+      "outDir": "dist",
+      "declaration": true,
+      "typeRoots": ["typings", "node_modules/@types"],
+      "types": ["mocha", "node", "bigeval"]
+    },
+  
+    "exclude": ["typings", "node_modules", "dist"]
+  }

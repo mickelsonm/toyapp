@@ -6,22 +6,44 @@ import {
     EmailNotificationPayload
 } from '../../types'
 
-export function buildEmailNotification(payload : EmailNotificationPayload) : INotification {
-    //TODO: send implementation should be build out more
-    const notification : INotification = {
-        send(data?: any) : Boolean { 
-            console.log('email send called')
+import { validate as validEmail } from 'email-validator'
+
+export function buildEmailNotification (payload: EmailNotificationPayload): INotification {
+    const notification: INotification = {
+        validate (): Boolean {
+            if (payload === null || payload === undefined) return false
+            if (!payload.subject.length) return false
+            if (!payload.body.length) return false
+            for (const email of payload.tos) {
+                if (!validEmail(email)) {
+                    return false
+                }
+            }
+            return true
+        },
+        send (): Boolean {
+            if (this.validate()) {
+                return true
+            }
             return false
         }
     }
     return Object.assign(notification, payload)
 }
 
-export function buildSlackNotification(payload : SlackNotificationPayload) : INotification {
-    //TODO: send implementation should be build out more
-    const notification : INotification = {
-        send(data?: any) : Boolean {
-            console.log('slack send called')
+export function buildSlackNotification (payload: SlackNotificationPayload): INotification {
+    const notification: INotification = {
+        validate (): Boolean {
+            if (payload === null || payload === undefined) return false
+            if (!payload.channel.length) return false
+            if (!payload.message.length) return false
+
+            return true
+        },
+        send (): Boolean {
+            if (this.validate()) {
+                return true
+            }
             return false
         }
     }
@@ -34,8 +56,8 @@ export function buildSlackNotification(payload : SlackNotificationPayload) : INo
  * @param payload {NotificationPayloads} - The payload that reflects the given type.
  * @returns The built notification.
  */
-export function buildNotification(notificationType: NotificationTypes, payload: NotificationPayloads): INotification {
-    switch(notificationType){
+export function buildNotification (notificationType: NotificationTypes, payload: NotificationPayloads): INotification {
+    switch (notificationType) {
       case 'Email':
         return buildEmailNotification(payload as EmailNotificationPayload)
       case 'Slack':
