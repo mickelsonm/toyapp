@@ -58,9 +58,9 @@ export function buildSlackNotification (payload: SlackNotificationPayload): INot
  */
 export function buildNotification (notificationType: NotificationTypes, payload: NotificationPayloads): INotification {
     switch (notificationType) {
-      case 'Email':
+      case NotificationTypes.Email:
         return buildEmailNotification(payload as EmailNotificationPayload)
-      case 'Slack':
+      case NotificationTypes.Slack:
         return buildSlackNotification(payload as SlackNotificationPayload)
       default:
         throw new Error('Illegal notification type')

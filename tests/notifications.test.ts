@@ -1,10 +1,11 @@
 import { strict as assert } from 'assert'
 import { buildNotification } from '../src/factories'
+import { NotificationTypes } from '../src/types'
 
 describe('notifications test suite', () => {
     describe('email notifications', () => {
         it('should not send if there are no valid emails', () => {
-            const emailNotification = buildNotification('Email', {
+            const emailNotification = buildNotification(NotificationTypes.Email, {
                 tos: [''],
                 from: 'notifications@mastery.net',
                 subject: 'Hello World',
@@ -16,7 +17,7 @@ describe('notifications test suite', () => {
         })
 
         it('should not send if there is no subject', () => {
-            const emailNotification = buildNotification('Email', {
+            const emailNotification = buildNotification(NotificationTypes.Email, {
                 tos: ['test@unit.test'],
                 from: 'notifications@mastery.net',
                 subject: '',
@@ -28,7 +29,7 @@ describe('notifications test suite', () => {
         })
 
         it('should be a valid email that can be sent', () => {
-            const emailNotification = buildNotification('Email', {
+            const emailNotification = buildNotification(NotificationTypes.Email, {
                 tos: ['user1@mastery.net', 'user2@mastery.net'],
                 from: 'notifications@mastery.net',
                 subject: 'Hello World',
@@ -42,7 +43,7 @@ describe('notifications test suite', () => {
 
     describe('slack notifications', () => {
         it('should end if the payload is good', () => {
-            const slackNotification = buildNotification('Slack', {
+            const slackNotification = buildNotification(NotificationTypes.Slack, {
                 channel: 'General',
                 message: 'Slackity slack slack'
             })
@@ -53,7 +54,7 @@ describe('notifications test suite', () => {
         })
 
         it('should not send if the payload is malformed', () => {
-            const slackNotification = buildNotification('Slack', {
+            const slackNotification = buildNotification(NotificationTypes.Slack, {
                 channel: '',
                 message: ''
             })

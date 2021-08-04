@@ -22,4 +22,7 @@ export interface SlackNotificationPayload {
 
 export type NotificationPayloads = EmailNotificationPayload | SlackNotificationPayload
 
-export type NotificationTypes = 'Email' | 'Slack'
+export enum NotificationTypes {
+  Email = 'Email',
+  Slack = 'Slack'
+}
